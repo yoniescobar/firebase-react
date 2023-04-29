@@ -17,10 +17,23 @@ const Login = () => {
         const password = e.target.password.value;
 
         if(registro){ //si es true
-            await createUserWithEmailAndPassword(auth, email, password) //crea un usuario
+            //await createUserWithEmailAndPassword(auth, email, password) //crea un usuario
+
+            try {
+                const user = await createUserWithEmailAndPassword(auth, email, password) //crea un usuario
+                console.log(user)
+            } catch (error) {
+                console.log(error)
+            }
 
         }else{
-            await signInWithEmailAndPassword(auth, email, password) //inicia sesion
+            //await signInWithEmailAndPassword(auth, email, password) //inicia sesion
+            try {
+                const user = await signInWithEmailAndPassword(auth, email, password) //inicia sesion
+                console.log(user)
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
