@@ -3,9 +3,27 @@ import img1 from '../img/1.png'
 import img2 from '../img/2.png'
 import img3 from '../img/3.png'
 
+import app from '../credenciales'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+const auth = getAuth(app);
+
 const Login = () => {
 
     const [registro, setRegistro] = useState(false)
+
+    const hadlerSumit = async (e) => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        if(registro){ //si es true
+            await createUserWithEmailAndPassword(auth, email, password) //crea un usuario
+
+        }else{
+            await signInWithEmailAndPassword(auth, email, password) //inicia sesion
+        }
+    }
+
 
     return (
         <div className='row'>
@@ -41,7 +59,7 @@ const Login = () => {
             <div className='col-md-4'>
                 <div className='container mt-5'>
                     <h1 className='text-center'>{registro ? 'Registrate' : 'Iniciar Sesión'}</h1>
-                    <form className='mt-4' >
+                    <form className='mt-4' onSubmit={hadlerSumit} >
                         <div className="mb-3">
                             <label className='form-label'>Dirección</label>
                             <input
